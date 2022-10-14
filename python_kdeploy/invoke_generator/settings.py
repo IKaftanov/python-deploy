@@ -6,7 +6,7 @@ import typing as t
 
 import toml
 
-from python_deploy.invoke_generator.datatypes import Image, Host
+from python_kdeploy.invoke_generator.datatypes import Image, Host
 
 
 def parse_image_config(images: dict, image: str) -> Image:

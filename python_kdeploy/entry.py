@@ -2,8 +2,8 @@ from __future__ import annotations
 
 import argparse
 
-from python_deploy.invoke_generator import settings
-from python_deploy.invoke_generator.helpers import (
+from python_kdeploy.invoke_generator import settings
+from python_kdeploy.invoke_generator.helpers import (
     get_context,
     build_image,
     submit_service,
@@ -55,13 +55,15 @@ def cmd():
     args = parser.parse_args()
     if args.verbose:
         print(args)
-    print(
-        "Available Images:\n",
-        "\n".join(str(item) for item in settings.IMAGES.values()),
-    )
-    print(
-        "Available Targets:\n",
-        "\n".join(str(item) for item in settings.TARGETS.values()),
-    )
+        print(
+            "Available Images:\n",
+            "\n".join(str(item) for item in settings.IMAGES.values()),
+        )
+        print(
+            "Available Targets:\n",
+            "\n".join(str(item) for item in settings.TARGETS.values()),
+        )
+    if not args.service or not args.action:
+        raise RuntimeError("no arguments passed")
 
     execute_command(args.service, args.action, args.target, args.no_cache)
