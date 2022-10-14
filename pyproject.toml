@@ -1,0 +1,46 @@
+[tool.poetry]
+name = "python-deploy"
+version = "0.1.0"
+description = "simple package for deployment on remote machine"
+authors = ["Ilya Kaftanov <kaftanovwork@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+invoke = "^1.7.3"
+patchwork = "^1.0.1"
+toml = "^0.10.2"
+types-toml = "^0.10.8"
+
+[tool.poetry.dev-dependencies]
+pre-commit = "^2.20.0"
+black = "^22.10.0"
+flake8 = "^5.0.4"
+mypy = "^0.982"
+
+[tool.poetry.scripts]
+pydep = "python_deploy.entry:cmd"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+#
+# @@@@@  BLACK CONFIG  @@@@@
+#
+[tool.black]
+line-length = 79
+target-version = ['py39']
+
+#
+# @@@@@  MYPY CONFIG  @@@@@
+#
+[tool.mypy]
+mypy_path= "$MYPY_CONFIG_FILE_DIR/src"
+python_version = "3.9"
+#warn_return_any = true
+#warn_unused_configs = true
+#warn_unreachable = true
+#check_untyped_defs = true
+#disallow_incomplete_defs = true
+#disallow_untyped_defs = true
+ignore_missing_imports = true

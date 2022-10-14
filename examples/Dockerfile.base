@@ -1,0 +1,32 @@
+ARG CUDA_VERSION=11.3.1
+ARG UBUNTU_VERSION=20.04
+
+FROM nvidia/cuda:${CUDA_VERSION}-cudnn8-runtime-ubuntu${UBUNTU_VERSION}
+
+ARG PYTHON_VERSION=3.9
+ARG TORCH_VERSION=1.12.0
+ARG TORCHVISION_VERSION=0.13.0
+ARG TORCH_DEVICE=cu113
+ARG python=python${PYTHON_VERSION}
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Install OpenCV dependincies
+RUN apt-get update -y && apt-get install -y ffmpeg libsm6 libxext6
+
+
+# Install the pyton v3.9
+RUN apt-get update && apt-get install software-properties-common -y \
+    && add-apt-repository ppa:deadsnakes/ppa -y \
+    && apt-get install python${PYTHON_VERSION} -y \
+    && apt-get install python3-pip -y \
+    && apt-get install libpython${PYTHON_VERSION}-dev -y
+
+
+# Install pytorch CUDA enabled
+RUN ${python} -m pip install torch==${TORCH_VERSION}+${TORCH_DEVICE} \
+    torchvision==${TORCHVISION_VERSION}+${TORCH_DEVICE} \
+    --extra-index-url https://download.pytorch.org/whl/${TORCH_DEVICE}
+
+
+CMD $python -c "import sys, torch; print(f'python={sys.version}'); print(f'torch={torch.__version__}');"

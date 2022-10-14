@@ -1,0 +1,17 @@
+[Unit]
+Description={SERVICE_DESCRIPTION}
+After=docker.service
+Requires=docker.service
+
+[Service]
+TimeoutStartSec=120
+Restart=always
+RestartSec=360
+ExecStartPre=-/usr/bin/docker stop %n
+ExecStartPre=-/usr/bin/docker rm %n
+ExecStart=/usr/bin/docker run --rm --name %n {RUN_PARAMS} {ENV_FILE} {IMAGE_NAME}
+ExecStop=-/usr/bin/docker stop %n
+ExecStop=-/usr/bin/docker rm %n
+
+[Install]
+WantedBy=multi-user.target

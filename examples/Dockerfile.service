@@ -1,0 +1,4 @@
+ARG BASE_IMAGE=base:latest
+FROM ${BASE_IMAGE}
+
+CMD ["python3.9", "-V"]

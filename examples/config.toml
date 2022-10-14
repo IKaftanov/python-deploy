@@ -1,0 +1,20 @@
+[host.prod]
+user = "root"
+host = "127.0.0.1"
+port = 22
+
+[image.example]
+service         = false
+repository_name = "example"
+branch          = "master"
+dockerfile_path = "Dockerfile.base"
+
+[image.service]
+service                 = true
+depends                 = ["example"]
+repository_name         = "example"
+branch                  = "master"
+dockerfile_path         = "Dockerfile.service"
+run_params              = """--gpus all --network="host" -v /storage:/storage"""
+env_file                = "example.env"
+app_path                = "/var/www/apps/"
