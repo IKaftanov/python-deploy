@@ -8,6 +8,7 @@ from python_kdeploy.invoke_generator.helpers import (
     build_image,
     submit_service,
     remove_service,
+    git_clone,
 )
 
 
@@ -23,6 +24,11 @@ def execute_command(service: str, action: str, target: str, no_cache: bool):
     target_host = settings.TARGETS[target]
     context = get_context(target_host.host, target_host.user, target_host.port)
     if action == "deploy":
+        git_clone(
+            context,
+            settings.IMAGES[service].repository_name,
+            settings.IMAGES[service].branch,
+        )
         build_image(context, settings.IMAGES[service], no_cache)
         submit_service(context, settings.IMAGES[service])
     else:
