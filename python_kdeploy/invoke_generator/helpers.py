@@ -9,7 +9,7 @@ from fabric import Connection
 
 from .datatypes import Image
 
-BuildKwargs = t.Dict[str, str]
+BuildKwargsType = t.Dict[str, str]
 
 
 def read_service_template() -> str:
@@ -70,7 +70,7 @@ def create_docker_build_command(
     dockerfile_path: str,
     image_name: str,
     no_cache: bool,
-    build_kwargs: BuildKwargs,
+    build_kwargs: BuildKwargsType,
 ) -> str:
     """
     docker build {--no-cache} -t {image_name}
@@ -93,7 +93,7 @@ def _build_image(
     context: Connection,
     image: Image,
     no_cache: bool = False,
-    build_kwargs: BuildKwargs = None,
+    build_kwargs: BuildKwargsType = None,
 ) -> str:
     sha = get_sha(context, image.repository_name) or "latest"
     image_name = f"{image.key}:{sha}"
@@ -115,7 +115,7 @@ def build_image(
     context: Connection,
     image: Image,
     no_cache: bool = False,
-    build_kwargs: BuildKwargs = None,
+    build_kwargs: BuildKwargsType = None,
 ) -> str:
     base_image = None
     if image.depends:

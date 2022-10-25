@@ -1,8 +1,12 @@
 [tool.poetry]
 name = "python_kdeploy"
-version = "0.1.0"
+version = "0.1.2"
 description = "simple package for deployment on remote machine"
 authors = ["Ilya Kaftanov <kaftanovwork@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+repository = "https://github.com/IKaftanov/python-deploy"
+keywords = ["deploy", "docker"]
 
 [tool.poetry.dependencies]
 python = "^3.9"
@@ -35,6 +39,6 @@ target-version = ['py39']
 # @@@@@  MYPY CONFIG  @@@@@
 #
 [tool.mypy]
-mypy_path= "$MYPY_CONFIG_FILE_DIR/pydep"
+mypy_path = "$MYPY_CONFIG_FILE_DIR/pydep"
 python_version = "3.9"
 ignore_missing_imports = true
